@@ -69,13 +69,18 @@
     <script>
         async function fetchCourseData () {
             const courseId = document.getElementById('course_id').value;
-            const nowUrl = "http://acm.sztu.edu.cn:40130/api/now";
+            const nowUrl = "https://acs.m.taobao.com/gw/mtop.common.getTimestamp/";
 
             try {
+                // 用js获取当前时间戳
+                time = new Date().getTime();
+
+
                 // 获取当前时间戳
-                let response = await fetch(nowUrl);
-                let data = await response.json();
-                let time1 = data["data"];
+                //let response = await fetch(nowUrl);
+                //let data = await response.json();
+                //let time1 = data["data"]['t'];
+                let time1 = time;
                 let time2 = parseInt(time1) + 1000;
 
                 // 构建课程URL
