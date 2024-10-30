@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>课程查询</title>
+    <script>
+        async function fetchCourseData () {
+            const courseId = document.getElementById('course_id').value;
+            const nowUrl = "http://acm.sztu.edu.cn:40130/api/now";
+
+            try {
+                // 获取当前时间戳
+                let response = await fetch(nowUrl);
+                let data = await response.json();
+                let time1 = data["data"];
+                let time2 = parseInt(time1) + 1000;
+
+                // 构建课程URL
+                let courseUrl = `http://acm.sztu.edu.cn:40130/hwsys/signin_op/${courseId}/${time1}/${time2}/`;
+
+                // 将窗口重定向到课程URL
+                window.location.href = courseUrl;
+
+                // 显示结果
+                document.getElementById('result').innerText = result;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = '请求失败，请重试。';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>课程查询</h1>
+    <form onsubmit="event.preventDefault(); fetchCourseData();">
+        课程ID: <input type="text" id="course_id"><br>
+        <input type="submit" value="提交">
+    </form>
+    <h2>结果</h2>
+    <p id="result"></p>
+</body>
+
+</html>
