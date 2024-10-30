@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程查询</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,23 +15,18 @@
             justify-content: center;
             height: 100vh;
             background-color: #f0f0f0;
-            align-items: center;
         }
-
         h1 {
             color: #333;
         }
-
         form {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 60%;
+            width: 90%;
             max-width: 400px;
-            text-align: center;
         }
-
         input[type="text"] {
             width: calc(100% - 22px);
             padding: 10px;
@@ -39,7 +34,6 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         input[type="submit"] {
             width: 100%;
             padding: 10px;
@@ -50,11 +44,9 @@
             font-size: 16px;
             cursor: pointer;
         }
-
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
-
         #result {
             margin-top: 20px;
             padding: 20px;
@@ -67,10 +59,10 @@
         }
     </style>
     <script>
-        async function fetchCourseData () {
+        async function fetchCourseData() {
             const courseId = document.getElementById('course_id').value;
             const nowUrl = "http://acm.sztu.edu.cn:40130/api/now";
-
+            
             try {
                 // 获取当前时间戳
                 let response = await fetch(nowUrl);
@@ -81,8 +73,12 @@
                 // 构建课程URL
                 let courseUrl = `http://acm.sztu.edu.cn:40130/hwsys/signin_op/${courseId}/${time1}/${time2}/`;
 
-                // 将窗口重定向到课程URL
-                window.location.href = courseUrl;
+                // 获取课程数据
+                response = await fetch(courseUrl);
+                let result = await response.text();
+
+                // 显示结果
+                document.getElementById('result').innerText = result;
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = '请求失败，请重试。';
@@ -90,12 +86,12 @@
         }
     </script>
 </head>
-
 <body>
+    <h1>课程查询</h1>
     <form onsubmit="event.preventDefault(); fetchCourseData();">
         课程ID: <input type="text" id="course_id" required><br>
         <input type="submit" value="提交">
     </form>
+    <div id="result"></div>
 </body>
-
 </html>
