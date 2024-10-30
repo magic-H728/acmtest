@@ -3,7 +3,69 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>课程查询</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            align-items: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            word-wrap: break-word;
+        }
+    </style>
     <script>
         async function fetchCourseData () {
             const courseId = document.getElementById('course_id').value;
@@ -21,9 +83,6 @@
 
                 // 将窗口重定向到课程URL
                 window.location.href = courseUrl;
-
-                // 显示结果
-                document.getElementById('result').innerText = result;
             } catch (error) {
                 console.error('Error:', error);
                 document.getElementById('result').innerText = '请求失败，请重试。';
@@ -33,13 +92,10 @@
 </head>
 
 <body>
-    <h1>课程查询</h1>
     <form onsubmit="event.preventDefault(); fetchCourseData();">
-        课程ID: <input type="text" id="course_id"><br>
+        课程ID: <input type="text" id="course_id" required><br>
         <input type="submit" value="提交">
     </form>
-    <h2>结果</h2>
-    <p id="result"></p>
 </body>
 
 </html>
