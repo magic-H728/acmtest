@@ -1,4 +1,12 @@
-[[headers]]
-  for = "/*"
-    [headers.values]
-    Access-Control-Allow-Origin = "*"
+# 重定向规则
+[[redirects]]
+  from = "/*"
+  to = "/test.html"
+  status = 200
+
+# 代理规则
+[[redirects]]
+  from = "/api/*"
+  to = "http://acm.sztu.edu.cn:40130/:splat"
+  status = 200
+  force = true
